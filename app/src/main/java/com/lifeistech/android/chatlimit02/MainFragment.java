@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 import java.util.zip.Inflater;
 
 /**
@@ -27,6 +31,7 @@ public class MainFragment extends Fragment {
     Button button;
     // Viewを作るためのクラス
     LayoutInflater inflater;
+    android.os.Handler handler = new android.os.Handler();
 
     private static float MESSAGE_VIEW_WIDTH;
 
@@ -57,6 +62,7 @@ public class MainFragment extends Fragment {
                 View v = createMessageView(message);
                 // frameLayoutにaddする
                 frame.addView(v);
+                setViewLimit(v);
                 // ViewにsetXとsetYをつける
                 Random random = new Random();
                 float x = random.nextFloat() * (frame.getWidth() - MESSAGE_VIEW_WIDTH);
@@ -77,9 +83,40 @@ public class MainFragment extends Fragment {
         textView.setText(message);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         messageView.setLayoutParams(layoutParams);
-
         return messageView;
     }
 
+    // 3秒でViewを消すメソッド
+    public void setViewLimit(final View view) {
+        /*Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }, 3000);*/
+        // 徐々に透明にする
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+        alphaAnimation.setDuration(5 * 1000);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(alphaAnimation);
+    }
 
 }
