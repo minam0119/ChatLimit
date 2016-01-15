@@ -2,12 +2,16 @@ package com.lifeistech.android.chatlimit02;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -37,6 +41,11 @@ public class MainFragment extends Fragment {
     FrameLayout frame;
     EditText editText;
     Button button;
+
+    //private ActionBarDrawerToggle actionBarDrawerToggle;
+    //private DrawerLayout drawerLayout;
+
+
     // Viewを作るためのクラス
     LayoutInflater inflater;
     android.os.Handler handler = new android.os.Handler();
@@ -79,6 +88,7 @@ public class MainFragment extends Fragment {
             }
         });
     }
+
 
     @Override
     public void onStart() {
@@ -188,5 +198,9 @@ public class MainFragment extends Fragment {
         timer.cancel();
         timer = null;
     }
+
+    /******MainContentsの部分******/
+
+    //NavogatopnViewの部分
 
 }
