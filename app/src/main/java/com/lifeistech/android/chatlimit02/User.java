@@ -10,4 +10,6 @@ import com.parse.ParseUser;
 @ParseClassName("User")
 public class User extends ParseUser {
 
+
+
 }

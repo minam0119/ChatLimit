@@ -1,17 +1,11 @@
 package com.lifeistech.android.chatlimit02;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Color;
+import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -24,15 +18,15 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Handler;
-import java.util.zip.Inflater;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -45,11 +39,12 @@ public class MainFragment extends Fragment {
     //private ActionBarDrawerToggle actionBarDrawerToggle;
     //private DrawerLayout drawerLayout;
 
-
     // Viewを作るためのクラス
     LayoutInflater inflater;
     android.os.Handler handler = new android.os.Handler();
+    private ParseUser user;
     private Timer timer;
+    private Location location;
 
     private static float MESSAGE_VIEW_WIDTH;
 
@@ -87,6 +82,8 @@ public class MainFragment extends Fragment {
                 message1.saveInBackground();
             }
         });
+
+        user = User.getCurrentUser();
     }
 
 
@@ -166,9 +163,15 @@ public class MainFragment extends Fragment {
 
     private void getMessages() {
         ParseQuery<Message> parseQuery = new ParseQuery<Message>(Message.class);
+        parseQuery.whereNotEqualTo("userId", user.getObjectId());
         Date date = new Date();
         date.setTime(date.getTime() - 20 * 1000);
         parseQuery.whereGreaterThanOrEqualTo("createdAt", date);
+        if (location != null) {
+            ParseGeoPoint point = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
+            parseQuery.whereNear("location", point);
+        }
+        parseQuery.setLimit(5);
         parseQuery.findInBackground(new FindCallback<Message>() {
             @Override
             public void done(List<Message> list, ParseException e) {
@@ -194,13 +197,17 @@ public class MainFragment extends Fragment {
         }, 1000, 5 * 1000);
     }
 
-    private void stopLoading(){
+    private void stopLoading() {
         timer.cancel();
         timer = null;
     }
 
-    /******MainContentsの部分******/
+    public void updateLocation(Location location) {
+        this.location = location;
+    }
 
-    //NavogatopnViewの部分
+    public Location getLocation() {
+        return location;
+    }
 
 }

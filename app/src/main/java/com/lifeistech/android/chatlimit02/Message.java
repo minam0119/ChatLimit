@@ -10,16 +10,22 @@ import com.parse.ParseObject;
 @ParseClassName("Message")
 public class Message extends ParseObject {
 
+    public String getUserId() { return getString("userId"); }
+
+    public void setUserId(String userId){
+        put("userId",userId);
+    }
+
     public String getMessage() {
         return getString("message");
     }
 
-    public ParseGeoPoint getLocation() {
-        return getParseGeoPoint("location");
-    }
-
     public void setMessage(String message) {
         put("message", message);
+    }
+
+    public ParseGeoPoint getLocation() {
+        return getParseGeoPoint("location");
     }
 
     public void setLocation(ParseGeoPoint geoPoint) {

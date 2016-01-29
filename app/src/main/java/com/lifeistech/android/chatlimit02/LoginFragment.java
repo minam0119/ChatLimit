@@ -41,12 +41,12 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editTextUserName = (EditText)view.findViewById(R.id.editTextUserName);
-        editTextMail = (EditText)view.findViewById(R.id.editTextMail);
-        editTextPassword = (EditText)view.findViewById(R.id.editTextPassword);
+        editTextUserName = (EditText) view.findViewById(R.id.editTextUserName);
+        editTextMail = (EditText) view.findViewById(R.id.editTextMail);
+        editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
 
-        button = (Button)view.findViewById(R.id.button2);
-        toolBar = (Toolbar)view.findViewById(R.id.toolbar);
+        button = (Button) view.findViewById(R.id.button2);
+        toolBar = (Toolbar) view.findViewById(R.id.toolbar);
 
         toolBar.setTitle("Signup");
         toolBar.setTitleTextColor(Color.WHITE);
@@ -55,14 +55,15 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String username = editTextUserName.getText().toString();
-                String mail = editTextUserName.getText().toString();
-                String password = editTextUserName.getText().toString();
+                String mail = editTextMail.getText().toString();
+                String password = editTextPassword.getText().toString();
 
                 User user = new User();
                 user.setUsername(username);
                 // Emailをここに入れる
                 user.setEmail(mail);
                 user.setPassword(password);
+
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
@@ -70,6 +71,7 @@ public class LoginFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                         } else {
+                            e.printStackTrace();
                             Log.e(LoginFragment.class.getSimpleName(), "エラーによりサインアップ失敗");
                             Toast.makeText(getActivity(), "エラーによりサインアップ失敗", Toast.LENGTH_LONG).show();
                         }

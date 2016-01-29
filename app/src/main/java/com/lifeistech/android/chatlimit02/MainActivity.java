@@ -1,16 +1,29 @@
 package com.lifeistech.android.chatlimit02;
 
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements LocationManagerFragment.OnUpdateLocationListener {
+
+    private MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportFragmentManager().beginTransaction().add(LocationManagerFragment.newInstance(500), "location").commit();
+        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
     }
 
 
@@ -34,5 +47,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onUpdateLocation(Location location) {
+        mainFragment.updateLocation(location);
     }
 }

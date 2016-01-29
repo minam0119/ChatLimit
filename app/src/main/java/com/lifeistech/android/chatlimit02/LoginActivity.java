@@ -1,6 +1,7 @@
 package com.lifeistech.android.chatlimit02;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,11 @@ public class LoginActivity extends AppCompatActivity {
 
         //ActionBar actionbar = this.getActionBar();
         //if(actionbar!=null)actionbar.hide();
+
+        if (User.getCurrentUser() != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
 
