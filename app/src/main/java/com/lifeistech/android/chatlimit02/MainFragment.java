@@ -59,6 +59,8 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         MESSAGE_VIEW_WIDTH = getResources().getDimension(R.dimen.message_view_width);
 
+        user = User.getCurrentUser();
+
         // FrameLayoutを作る
         frame = (FrameLayout) view.findViewById(R.id.messageLayout);
         editText = (EditText) view.findViewById(R.id.editText);
@@ -68,7 +70,7 @@ public class MainFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = editText.getText().toString();
+                String messageText = editText.getText().toString();
                 editText.setText("");
                 //キーボードを非表示にする
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -76,14 +78,18 @@ public class MainFragment extends Fragment {
 
 //                Intent intent = new Intent();
 //                intent.putExtra("key_message",message);
-                addMessage(message);
-                Message message1 = new Message();
-                message1.setMessage(message);
-                message1.saveInBackground();
+                // 画面にメッセージを追加
+                addMessage(messageText);
+                // メッセージを保存する
+                Message message = new Message();
+                message.setMessage(messageText);
+                message.setUserId(user.getObjectId());
+                if (location != null) {
+                    message.setLocation(new ParseGeoPoint(location.getLatitude(), location.getLongitude()));
+                }
+                message.saveInBackground();
             }
         });
-
-        user = User.getCurrentUser();
     }
 
 

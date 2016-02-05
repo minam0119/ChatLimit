@@ -14,7 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/frameLayout"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp" />
 
         <LinearLayout
             android:id="@+id/frameLayout"
@@ -28,15 +30,20 @@
 
             <EditText
                 android:id="@+id/editText"
-                android:layout_width="266dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/edittext_background_left" />
+                android:background="@drawable/edittext_background_left"
+                android:paddingLeft="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/sendbt" />
+                android:background="@drawable/sendbt"
+                android:layout_weight="4" />
         </LinearLayout>
 
         <!-- NavigatonDrawer部分 -->

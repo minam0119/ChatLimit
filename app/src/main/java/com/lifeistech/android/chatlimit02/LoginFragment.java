@@ -1,6 +1,5 @@
 package com.lifeistech.android.chatlimit02;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -22,14 +22,11 @@ import com.parse.SignUpCallback;
  * A placeholder fragment containing a simple view.
  */
 public class LoginFragment extends Fragment {
-    EditText editTextUserName;
-    EditText editTextMail;
-    EditText editTextPassword;
+    Toolbar toolbar;
     Button button;
-    Toolbar toolBar;
+    EditText editTextUserName,editTextPassword;
 
     public LoginFragment() {
-
     }
 
     @Override
@@ -40,46 +37,37 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle("Login");
+        toolbar.setTitleTextColor(Color.WHITE);
+        button = (Button)view.findViewById(R.id.button);
+        editTextUserName = (EditText)view.findViewById(R.id.editText2);
+        editTextPassword = (EditText)view.findViewById(R.id.editText3);
 
-        editTextUserName = (EditText) view.findViewById(R.id.editTextUserName);
-        editTextMail = (EditText) view.findViewById(R.id.editTextMail);
-        editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
 
-        button = (Button) view.findViewById(R.id.button2);
-        toolBar = (Toolbar) view.findViewById(R.id.toolbar);
-
-        toolBar.setTitle("Signup");
-        toolBar.setTitleTextColor(Color.WHITE);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = editTextUserName.getText().toString();
-                String mail = editTextMail.getText().toString();
                 String password = editTextPassword.getText().toString();
-
-                User user = new User();
-                user.setUsername(username);
-                // Emailをここに入れる
-                user.setEmail(mail);
-                user.setPassword(password);
-
-                user.signUpInBackground(new SignUpCallback() {
-                    public void done(ParseException e) {
+                User.logInInBackground(username,password, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser parseUser, ParseException e) {
                         if (e == null) {
-                            Log.e(LoginFragment.class.getSimpleName(), "サインアップ成功");
+                            Log.e(SignUpFragment.class.getSimpleName(), "ログイン成功");
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                         } else {
                             e.printStackTrace();
-                            Log.e(LoginFragment.class.getSimpleName(), "エラーによりサインアップ失敗");
-                            Toast.makeText(getActivity(), "エラーによりサインアップ失敗", Toast.LENGTH_LONG).show();
+                            Log.e(SignUpFragment.class.getSimpleName(), "エラーによりログイン失敗");
+                            Toast.makeText(getActivity(), "エラーによりログイン失敗", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+
+
             }
         });
     }
-
-
 }
