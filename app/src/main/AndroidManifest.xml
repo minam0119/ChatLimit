@@ -17,7 +17,7 @@
     <application
         android:name=".ChatApplication"
         android:allowBackup="true"
-        android:icon="@drawable/limitalk"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         >
