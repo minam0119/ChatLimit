@@ -2,11 +2,11 @@ package com.lifeistech.android.chatlimit02;
 
 import android.app.Application;
 
+import com.lifeistech.android.chatlimit02.Class.Message;
+import com.lifeistech.android.chatlimit02.Class.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-
-import org.xml.sax.helpers.ParserAdapter;
 
 /**
  * Created by MINAMI on 2015/12/27.

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lifeistech.android.chatlimit02.LoginFragment">
+    tools:context="com.lifeistech.android.chatlimit02.Fragment.LoginFragment"
+    android:background="#ffffff">
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Login to ChatLimit"
+            android:text="Login to LimiTalk"
             android:id="@+id/textView8"
             android:layout_marginTop="24dp" />
 
@@ -49,7 +50,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/editText2"
                 android:background="@drawable/edittext_background"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="#999" />
 
         </LinearLayout>
 
@@ -73,17 +76,23 @@
                 android:id="@+id/editText3"
                 android:inputType="textPassword"
                 android:background="@drawable/edittext_background"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="#999" />
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/button"
-            android:layout_marginTop="24dp"
-            android:layout_gravity="center_horizontal" />
-
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:src="@drawable/login"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="36dp"
+        android:paddingRight="36dp"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

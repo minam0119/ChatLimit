@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lifeistech.android.chatlimit02.SignUpFragment">
+    tools:context="com.lifeistech.android.chatlimit02.Fragment.SignUpFragment"
+    android:background="#ffffff"
+    >
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
@@ -32,7 +34,9 @@
             android:layout_alignLeft="@+id/linearLayout"
             android:layout_alignStart="@+id/linearLayout"
             android:layout_marginTop="24dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
 
         <LinearLayout
@@ -40,7 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="32dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
             <TextView
                 android:layout_width="72dp"
@@ -57,7 +63,8 @@
                 android:background="@drawable/edittext_background"
                 android:layout_marginLeft="10dp"
                 android:textColor="#999"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +72,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="24dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
             <TextView
                 android:layout_width="72dp"
@@ -93,7 +102,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="24dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
             <TextView
                 android:layout_width="72dp"
@@ -125,17 +136,19 @@
             android:layout_below="@+id/linearLayout"
             android:layout_toRightOf="@+id/button2"
             android:layout_toEndOf="@+id/button2"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
-        <Button
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SignUp"
-            android:id="@+id/button2"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/button"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp"
+            android:src="@drawable/signup"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp" />
 
     </LinearLayout>
 
