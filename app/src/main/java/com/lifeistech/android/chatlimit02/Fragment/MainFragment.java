@@ -6,6 +6,7 @@ import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lifeistech.android.chatlimit02.Class.Message;
 import com.lifeistech.android.chatlimit02.R;
@@ -39,7 +42,7 @@ import java.util.TimerTask;
 public class MainFragment extends Fragment {
     FrameLayout frame;
     EditText editText;
-    Button button;
+    ImageButton button;
     Toolbar toolbar;
 
     //private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -70,8 +73,8 @@ public class MainFragment extends Fragment {
         // FrameLayoutを作る
         frame = (FrameLayout) view.findViewById(R.id.messageLayout);
         editText = (EditText) view.findViewById(R.id.editText);
-        button = (Button) view.findViewById(R.id.button);
-        toolbar = (Toolbar)view.findViewById(R.id.toolbar);
+        button = (ImageButton) view.findViewById(R.id.button);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle("Talk");
         toolbar.setTitleTextColor(Color.WHITE);
 
@@ -85,23 +88,22 @@ public class MainFragment extends Fragment {
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-//                Intent intent = new Intent();
-//                intent.putExtra("key_message",message);
-                // 画面にメッセージを追加
-                addMessage(messageText);
-                // メッセージを保存する
-
-                Message message = new Message();
-
-                //if(message != "" && message.length() <= 40){
-
+                if (TextUtils.isEmpty(messageText)) {
+                    Toast.makeText(getActivity(),"メッセージの中身がありません",Toast.LENGTH_SHORT).show();
+                } else if(messageText.length() > 40) {
+                    Toast.makeText(getActivity(),"40文字を越えています",Toast.LENGTH_SHORT).show();
+                } else {
+                    // 画面にメッセージを追加
+                    addMessage(messageText);
+                    // メッセージを保存する
+                    Message message = new Message();
                     message.setMessage(messageText);
                     message.setUserId(user.getObjectId());
                     if (location != null) {
                         message.setLocation(new ParseGeoPoint(location.getLatitude(), location.getLongitude()));
-                        }
-                //}
-                message.saveInBackground();
+                    }
+                    message.saveInBackground();
+                }
             }
         });
     }
