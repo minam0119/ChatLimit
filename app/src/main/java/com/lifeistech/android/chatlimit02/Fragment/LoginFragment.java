@@ -6,6 +6,7 @@ import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,8 @@ import com.parse.ParseUser;
  */
 public class LoginFragment extends Fragment {
     Toolbar toolbar;
-    ImageView button;
-    EditText editTextUserName,editTextPassword;
+    Button button;
+    EditText editTextUserName, editTextPassword;
 
     public LoginFragment() {
     }
@@ -45,17 +46,20 @@ public class LoginFragment extends Fragment {
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle("Login");
         toolbar.setTitleTextColor(Color.WHITE);
-        button = (ImageView)view.findViewById(R.id.button);
-        editTextUserName = (EditText)view.findViewById(R.id.editText2);
-        editTextPassword = (EditText)view.findViewById(R.id.editText3);
-
-
-
+        button = (Button) view.findViewById(R.id.button);
+        editTextUserName = (EditText) view.findViewById(R.id.editText2);
+        editTextPassword = (EditText) view.findViewById(R.id.editText3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = editTextUserName.getText().toString();
                 String password = editTextPassword.getText().toString();
+
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(getActivity(), "全ての項目を入力をしてください", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 User.logInInBackground(username, password, new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
@@ -63,6 +67,7 @@ public class LoginFragment extends Fragment {
                             Log.e(SignUpFragment.class.getSimpleName(), "ログイン成功");
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
+                            getActivity().finish();
                         } else {
                             e.printStackTrace();
                             Log.e(SignUpFragment.class.getSimpleName(), "エラーによりログイン失敗");

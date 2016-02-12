@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_hovered="true">
+        <bitmap android:src="@drawable/sendbt" android:alpha="0.5" />
+    </item>
+    <item android:state_pressed="true">
+        <bitmap android:src="@drawable/sendbt" android:tint="#3000" android:tintMode="add" />
+    </item>
+    <item android:drawable="@drawable/sendbt" />
+</selector>

@@ -140,15 +140,21 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
             android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout2"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
             android:layout_marginTop="24dp"
-            android:src="@drawable/signup"
-            android:paddingRight="24dp"
-            android:paddingLeft="24dp" />
+            android:background="@drawable/btn_login"
+            android:src="@drawable/btn_login"
+            android:text="Signup"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

@@ -51,7 +51,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sendbt" />
+                android:src="@drawable/btn_message_send" />
         </LinearLayout>
 
         <!-- NavigatonDrawer部分 -->

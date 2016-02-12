@@ -1,6 +1,7 @@
 package com.lifeistech.android.chatlimit02.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lifeistech.android.chatlimit02.Activity.SignUpActivity;
 import com.lifeistech.android.chatlimit02.Class.Message;
 import com.lifeistech.android.chatlimit02.R;
 import com.lifeistech.android.chatlimit02.Class.User;
@@ -45,9 +47,6 @@ public class MainFragment extends Fragment {
     ImageButton button;
     Toolbar toolbar;
 
-    //private ActionBarDrawerToggle actionBarDrawerToggle;
-    //private DrawerLayout drawerLayout;
-
     // Viewを作るためのクラス
     LayoutInflater inflater;
     android.os.Handler handler = new android.os.Handler();
@@ -69,6 +68,12 @@ public class MainFragment extends Fragment {
         MESSAGE_VIEW_WIDTH = getResources().getDimension(R.dimen.message_view_width);
 
         user = User.getCurrentUser();
+        if (user == null) {
+            final Intent intent = new Intent(getActivity(), SignUpActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            getActivity().finish();
+        }
 
         // FrameLayoutを作る
         frame = (FrameLayout) view.findViewById(R.id.messageLayout);
@@ -150,18 +155,6 @@ public class MainFragment extends Fragment {
 
     // 3秒でViewを消すメソッド
     public void setViewLimit(final View view) {
-        /*Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(View.GONE);
-                    }
-                });
-            }
-        }, 3000);*/
         // 徐々に透明にする
         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
         alphaAnimation.setDuration(5 * 1000);

@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,14 +33,9 @@ public class SignUpFragment extends Fragment {
     EditText editTextUserName;
     EditText editTextMail;
     EditText editTextPassword;
-    ImageView button;
+    Button button;
     Toolbar toolBar;
     TextView loginText;
-    SharedPreferences sharedPreferences;
-
-    public SignUpFragment() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,26 +50,17 @@ public class SignUpFragment extends Fragment {
         editTextMail = (EditText) view.findViewById(R.id.editTextMail);
         editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
 
-        button = (ImageView) view.findViewById(R.id.button);
+        button = (Button) view.findViewById(R.id.button);
         toolBar = (Toolbar) view.findViewById(R.id.toolbar);
 
         toolBar.setTitle("Signup");
         toolBar.setTitleTextColor(Color.WHITE);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final boolean isLogin = sharedPreferences.getBoolean("isLogin",false);
-
-        if(isLogin){
-            Intent intent = new Intent(getActivity(),MainActivity.class);
-            startActivity(intent);
-
-        }
-
-        loginText = (TextView)view.findViewById(R.id.textView6);
+        loginText = (TextView) view.findViewById(R.id.textView6);
         loginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -84,9 +71,10 @@ public class SignUpFragment extends Fragment {
                 String username = editTextUserName.getText().toString();
                 String mail = editTextMail.getText().toString();
                 String password = editTextPassword.getText().toString();
-
-                sharedPreferences.edit().putBoolean("isLogin",true).commit();
-
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(mail) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(getActivity(), "全ての項目を入力をしてください", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 User user = new User();
                 user.setUsername(username);
                 // Emailをここに入れる
@@ -98,6 +86,7 @@ public class SignUpFragment extends Fragment {
                             Log.e(SignUpFragment.class.getSimpleName(), "サインアップ成功");
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
+                            getActivity().finish();
                         } else {
                             e.printStackTrace();
                             Log.e(SignUpFragment.class.getSimpleName(), "エラーによりサインアップ失敗");
